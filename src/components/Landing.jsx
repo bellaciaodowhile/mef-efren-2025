@@ -1,11 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Calendar, MapPin, Clock, CheckCircle } from 'lucide-react'
 import RegistrationModal from './RegistrationModal'
 import videoBackground from '../assets/video-0.mp4'
 import posterImage from '../assets/images/background.webp'
+
 const Landing = ({ onRegister }) => {
   const [showModal, setShowModal] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (video) {
+      // Forzar reproducción en móviles
+      video.play().catch((error) => {
+        console.log('Video autoplay prevented:', error)
+        // Si falla el autoplay, intentar de nuevo cuando el usuario interactúe
+        const playOnInteraction = () => {
+          video.play()
+          document.removeEventListener('touchstart', playOnInteraction)
+          document.removeEventListener('click', playOnInteraction)
+        }
+        document.addEventListener('touchstart', playOnInteraction)
+        document.addEventListener('click', playOnInteraction)
+      })
+    }
+  }, [])
 
   const handleRegister = async (formData) => {
     const success = await onRegister(formData)
@@ -20,17 +40,26 @@ const Landing = ({ onRegister }) => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="relative h-screen flex items-center justify-center">
+      <div className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Video de fondo para todos los dispositivos */}
         <video 
+          ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
-          src={videoBackground}
           poster={posterImage}
           autoPlay
           loop
           muted
           playsInline
-        />
-        <div className="absolute inset-0 bg-black/50 bg-landing" />
+          preload="auto"
+          disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplayback"
+          style={{ pointerEvents: 'none' }}
+        >
+          <source src={videoBackground} type="video/mp4" />
+          Tu navegador no soporta videos HTML5.
+        </video>
+        
+        <div className="absolute inset-0 bg-black/50" />
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 pt-16">
           <h3 className='uppercase text-center mb-6 text-xs md:text-xl zalando-sans-semiexpanded '>- ministerio musical adventista ador-arte -</h3>
