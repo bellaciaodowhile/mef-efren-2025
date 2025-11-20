@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Calendar, MapPin, Clock, CheckCircle } from 'lucide-react'
 import RegistrationModal from './RegistrationModal'
 import videoBackground from '../assets/video-0.mp4'
+import posterImage from '../assets/images/background.png'
 
 const Landing = ({ onRegister }) => {
   const [showModal, setShowModal] = useState(false)
@@ -24,6 +25,7 @@ const Landing = ({ onRegister }) => {
         <video 
           className="absolute inset-0 w-full h-full object-cover"
           src={videoBackground}
+          poster={posterImage}
           autoPlay
           loop
           muted
