@@ -119,9 +119,8 @@ const RegistrationModal = ({ onClose, onRegister }) => {
             type="submit"
             disabled={loading}
             className="bg-gradient-to-r w-full m-auto from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 
-             text-white font-bold py-4 px-12 rounded-full text-xl 
-             transition-all transform hover:scale-105"
-          >
+            text-white font-bold py-4 px-12 rounded-full text-md 
+            transition-all transform hover:scale-105">
             {loading ? 'Registrando...' : 'Confirmar Asistencia'}
           </button>
         </form>

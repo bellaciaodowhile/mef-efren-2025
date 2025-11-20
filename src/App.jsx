@@ -71,9 +71,9 @@ function AppContent() {
     <div className="min-h-screen">
       {showNav && (
         <nav className="fixed top-0 w-full z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <Link to="/" className="flex items-center space-x-2">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-center items-center h-16">
+              <Link to="/" className="flex justify-center items-center space-x-2">
                 <span className="text-white font-bold text-xl pt-10">
                   <img src={logoAdorarte} className='w-28' alt="Ador-Arte" />
                 </span>

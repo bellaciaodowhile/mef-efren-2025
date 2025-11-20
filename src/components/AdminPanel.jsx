@@ -280,7 +280,7 @@ const AdminPanel = ({ registrations, onUpdate, onDelete }) => {
                 </div>
               </div>
 
-              <div className="flex space-x-4 pt-4">
+              <div className="flex flex-col space-y-2 pt-4">
                 <button
                   onClick={handleSave}
                   disabled={loading}
@@ -291,7 +291,7 @@ const AdminPanel = ({ registrations, onUpdate, onDelete }) => {
                 <button
                   onClick={() => setEditModal(null)}
                   disabled={loading}
-                  className="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-all"
+                  className="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-all w-full"
                 >
                   Cancelar
                 </button>

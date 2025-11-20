@@ -32,13 +32,13 @@ const Landing = ({ onRegister }) => {
         />
         <div className="absolute inset-0 bg-black/50 bg-landing" />
         
-        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+        <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 pt-16">
           <h3 className='uppercase text-center mb-6 text-xs md:text-xl zalando-sans-semiexpanded '>- ministerio musical adventista ador-arte -</h3>
           <h1 className="text-8xl md:text-9xl font-bold mb-6 allison-regular">
             Adoremos al <br />Rey
           </h1>
           
-          <div className="flex flex-wrap justify-center items-center gap-5 md:gap-8 mb-12 text-lg">
+          <div className="flex flex-wrap justify-center items-center gap-5 md:gap-8 mb-12 text-sm">
             <div className="flex items-center space-x-2">
               <Calendar className="h-6 w-6 text-white" />
               <span>Domingo 21 de Diciembre</span>
