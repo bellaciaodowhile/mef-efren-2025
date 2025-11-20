@@ -12,7 +12,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 .bg-landing {
-  background: url('./assets/images/background.PNG');
+  background: url('./assets/images/background.webp');
 }
 .allison-regular {
   font-family: "Allison", cursive;
