@@ -61,9 +61,7 @@ const RegistrationModal = ({ onClose, onRegister }) => {
           <X className="h-6 w-6" />
         </button>
 
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">
-          Registro para Adoremos Al Rey
-        </h2>
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">Adoremos Al Rey</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
