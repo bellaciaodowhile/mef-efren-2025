@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { Users, Mail, Calendar, TrendingUp, Search, Edit2, Trash2, X, User } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { Users, Mail, Calendar, TrendingUp, Search, Edit2, Trash2, X, User, LogOut } from 'lucide-react'
 import { useSpring, animated } from 'react-spring'
 
 const AdminPanel = ({ registrations, onUpdate, onDelete }) => {
+  const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [editModal, setEditModal] = useState(null)
   const [editForm, setEditForm] = useState({ nombre: '', apellido: '', email: '' })
@@ -57,6 +59,11 @@ const AdminPanel = ({ registrations, onUpdate, onDelete }) => {
     setLoading(false)
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem('isAdminAuthenticated')
+    navigate('/login')
+  }
+
   const modalAnimation = useSpring({
     from: { opacity: 0, transform: 'translateY(-50px) scale(0.9)' },
     to: { opacity: 1, transform: 'translateY(0px) scale(1)' },
@@ -66,9 +73,18 @@ const AdminPanel = ({ registrations, onUpdate, onDelete }) => {
   return (
     <div className="min-h-screen bg-gray-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 pt-20">
-          <h1 className="text-3xl font-bold text-white mb-2">Panel de Administración</h1>
-          <p className="text-gray-400">Gestión de registros para Adoremos al Rey 2024</p>
+        <div className="mb-8 flex flex-wrap justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-white mb-2">Panel de Administración</h1>
+            <p className="text-gray-400">Gestión de registros para Adoremos al Rey 2024</p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all"
+          >
+            <LogOut className="h-5 w-5" />
+            <span>Cerrar Sesión</span>
+          </button>
         </div>
 
         {/* Stats Cards */}
@@ -117,14 +133,14 @@ const AdminPanel = ({ registrations, onUpdate, onDelete }) => {
         </div>
 
         {/* Search Bar */}
-        <div className="mb-6 flex justify-between items-center">
+        <div className="mb-6 flex flex-wrap justify-between items-center">
           <h2 className="text-2xl font-semibold text-white">Lista de Asistentes</h2>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
               placeholder="Buscar asistente..."
-              className="bg-gray-800 text-white pl-10 pr-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none"
+              className="bg-gray-800 mt-2 w-full text-white pl-10 pr-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -142,21 +158,21 @@ const AdminPanel = ({ registrations, onUpdate, onDelete }) => {
             {filteredRegistrations.map((registration, index) => (
               <div 
                 key={registration.id} 
-                className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-all"
+                className="bg-gray-800 rounded-xl p-4 md:p-6 hover:bg-gray-750 transition-all"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4 flex-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center space-x-3 md:space-x-4 flex-1 min-w-0">
                     {/* Numero */}
-                    <div className="flex-shrink-0 w-8 text-center">
-                      <span className="text-2xl font-bold text-gray-500">
+                    <div className="flex-shrink-0 w-6 md:w-8 text-center">
+                      <span className="text-xl md:text-2xl font-bold text-gray-500">
                         {index + 1}
                       </span>
                     </div>
 
                     {/* Avatar */}
                     <div className="flex-shrink-0">
-                      <div className="h-14 w-14 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
-                        <span className="text-xl font-bold text-white">
+                      <div className="h-12 w-12 md:h-14 md:w-14 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
+                        <span className="text-lg md:text-xl font-bold text-white">
                           {registration.nombre[0]}{registration.apellido[0]}
                         </span>
                       </div>
@@ -164,39 +180,39 @@ const AdminPanel = ({ registrations, onUpdate, onDelete }) => {
 
                     {/* Info */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <h3 className="text-lg font-semibold text-white">
+                      <div className="mb-1 md:mb-2">
+                        <h3 className="text-base md:text-lg font-semibold text-white truncate">
                           {registration.nombre} {registration.apellido}
                         </h3>
                       </div>
-                      <div className="flex items-center space-x-4 text-sm text-gray-400">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs md:text-sm text-gray-400">
                         <div className="flex items-center space-x-2">
-                          <Mail className="h-4 w-4" />
-                          <span>{registration.email}</span>
+                          <Mail className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+                          <span className="truncate">{registration.email}</span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <Calendar className="h-4 w-4" />
-                          <span>{new Date(registration.created_at).toLocaleDateString('es-ES')}</span>
+                          <Calendar className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+                          <span className="whitespace-nowrap">{new Date(registration.created_at).toLocaleDateString('es-ES')}</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Actions */}
-                  <div className="flex space-x-2 ml-4">
+                  <div className="flex space-x-2 sm:ml-4 justify-end sm:justify-start">
                     <button
                       onClick={() => handleEdit(registration)}
-                      className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all"
+                      className="p-2 md:p-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all"
                       title="Editar"
                     >
-                      <Edit2 className="h-5 w-5" />
+                      <Edit2 className="h-4 w-4 md:h-5 md:w-5" />
                     </button>
                     <button
                       onClick={() => setDeleteConfirm(registration)}
-                      className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all"
+                      className="p-2 md:p-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all"
                       title="Eliminar"
                     >
-                      <Trash2 className="h-5 w-5" />
+                      <Trash2 className="h-4 w-4 md:h-5 md:w-5" />
                     </button>
                   </div>
                 </div>

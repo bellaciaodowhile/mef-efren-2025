@@ -65,7 +65,7 @@ function AppContent() {
     navigate('/login')
   }
 
-  const showNav = location.pathname !== '/login'
+  const showNav = location.pathname !== '/login' && location.pathname !== '/panel'
 
   return (
     <div className="min-h-screen">

@@ -5,8 +5,8 @@ import { useSpring, animated } from 'react-spring'
 
 // Credenciales estáticas
 const ADMIN_CREDENTIALS = {
-  username: 'admin',
-  password: 'adorarte2024'
+  username: import.meta.env.VITE_APP_USER,
+  password: import.meta.env.VITE_APP_PASSWORD
 }
 
 const Login = () => {

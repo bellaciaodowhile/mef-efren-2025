@@ -58,10 +58,9 @@ const Landing = ({ onRegister }) => {
             onClick={() => setShowModal(true)}
             className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 
             text-white font-bold py-4 px-12 rounded-full text-xl 
-            transition-all transform hover:scale-105" 
->
-  ¡Asistiré al Concierto!
-</button>
+            transition-all transform hover:scale-105">
+              ¡Asistiré al Concierto!
+          </button>
         </div>
       </div>
 
